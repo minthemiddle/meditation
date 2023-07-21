@@ -74,14 +74,20 @@ function app() {
           return acc;
         }, { labels: [], data: [] });
   
+        // Sort the data by date before rendering the chart
+        const sortedData = data.labels.map((label, index) => ({
+          label,
+          data: data.data[index],
+        })).sort((a, b) => new Date(a.label) - new Date(b.label));
+  
         const ctx = document.getElementById('chart').getContext('2d');
         this.chart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: data.labels,
+            labels: sortedData.map(entry => entry.label),
             datasets: [{
               label: 'Duration (minutes)',
-              data: data.data,
+              data: sortedData.map(entry => entry.data),
               fill: false,
               borderColor: 'rgba(75, 192, 192, 1)',
               borderWidth: 2,
