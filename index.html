@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meditation Logger</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  <div class="container mx-auto mt-8 p-4">
+    <h1 class="text-2xl font-bold mb-4">Meditation Logger</h1>
+    <div x-data="app()" x-init="loadData()">
+      <!-- Entry form -->
+      <div class="max-w-md bg-white p-4 rounded-lg shadow-lg">
+        <div class="mb-4">
+          <label for="datetime" class="block font-medium text-gray-700">Date and Time</label>
+          <input x-model="datetime" type="datetime-local" id="datetime" name="datetime" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="duration" class="block font-medium text-gray-700">Length (minutes)</label>
+          <input x-model="duration" type="number" id="duration" name="duration" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+          <label for="type" class="block font-medium text-gray-700">Type</label>
+          <select x-model="type" id="type" name="type" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+            <option value="Sitting">Sitting</option>
+            <option value="Walking">Walking</option>
+            <option value="Bodyscan">Bodyscan</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="comment" class="block font-medium text-gray-700">Comment</label>
+          <textarea x-model="comment" id="comment" name="comment" class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none" rows="4"></textarea>
+        </div>
+        <button @click="saveEntry()" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Save</button>
+      </div>
+
+      <!-- Previous sessions -->
+      <div class="mt-8">
+        <h2 class="text-xl font-bold mb-4">Previous Sessions</h2>
+        <table class="min-w-full divide-y divide-gray-200 bg-white shadow overflow-hidden sm:rounded-lg">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration (minutes)</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Edit</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <template x-for="entry in entries" :key="entry.id">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">{{ entry.timestamp }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ entry.duration }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">{{ entry.type }}</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <button @click="editEntry(entry.id)" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Edit</button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Chart -->
+      <div class="mt-8">
+        <canvas id="chart" width="400" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
