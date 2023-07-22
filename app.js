@@ -1,4 +1,11 @@
 function app() {
+    const typeColors = {
+      Sitting: 'rgba(0, 128, 255, 1)',
+      Walking: 'rgba(255, 165, 0, 1)',
+      Bodyscan: 'rgba(34, 139, 34, 1)',
+      Other: 'rgba(128, 0, 128, 1)',
+    };
+  
     return {
       datetime: getCurrentDateTime(),
       duration: 0,
@@ -67,10 +74,13 @@ function app() {
           const date = entry.timestamp.slice(0, 10);
           if (!acc.labels.includes(date)) {
             acc.labels.push(date);
-            acc.data.push(0);
+            acc.data.push({});
           }
           const index = acc.labels.indexOf(date);
-          acc.data[index] += entry.duration;
+          if (!acc.data[index][entry.type]) {
+            acc.data[index][entry.type] = 0;
+          }
+          acc.data[index][entry.type] += entry.duration;
           return acc;
         }, { labels: [], data: [] });
   
@@ -80,16 +90,22 @@ function app() {
           data: data.data[index],
         })).sort((a, b) => new Date(a.label) - new Date(b.label));
   
+        const datasets = [];
+        for (const type of Object.keys(typeColors)) {
+          const dataset = {
+            label: type,
+            data: sortedData.map(entry => entry.data[type] || 0),
+            backgroundColor: typeColors[type],
+          };
+          datasets.push(dataset);
+        }
+  
         const ctx = document.getElementById('chart').getContext('2d');
         this.chart = new Chart(ctx, {
           type: 'bar',
           data: {
             labels: sortedData.map(entry => entry.label),
-            datasets: [{
-              label: 'Duration (minutes)',
-              data: sortedData.map(entry => entry.data),
-              backgroundColor: 'rgba(0, 128, 255, 1)',
-            }]
+            datasets: datasets,
           },
         });
       },
