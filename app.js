@@ -82,15 +82,13 @@ function app() {
   
         const ctx = document.getElementById('chart').getContext('2d');
         this.chart = new Chart(ctx, {
-          type: 'line',
+          type: 'bar',
           data: {
             labels: sortedData.map(entry => entry.label),
             datasets: [{
               label: 'Duration (minutes)',
               data: sortedData.map(entry => entry.data),
-              fill: false,
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 2,
+              backgroundColor: 'rgba(0, 128, 255, 1)',
             }]
           },
         });
