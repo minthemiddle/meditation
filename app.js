@@ -90,15 +90,12 @@ function app() {
           data: data.data[index],
         })).sort((a, b) => new Date(a.label) - new Date(b.label));
   
-        const datasets = [];
-        for (const type of Object.keys(typeColors)) {
-          const dataset = {
-            label: type,
-            data: sortedData.map(entry => entry.data[type] || 0),
-            backgroundColor: typeColors[type],
-          };
-          datasets.push(dataset);
-        }
+        const datasets = Object.keys(typeColors).map(type => ({
+          label: type,
+          data: sortedData.map(entry => entry.data[type] || 0),
+          backgroundColor: typeColors[type],
+          stack: 'stack', // Stack the durations for each date
+        }));
   
         const ctx = document.getElementById('chart').getContext('2d');
         this.chart = new Chart(ctx, {
@@ -106,6 +103,12 @@ function app() {
           data: {
             labels: sortedData.map(entry => entry.label),
             datasets: datasets,
+          },
+          options: {
+            scales: {
+              x: { stacked: true },
+              y: { stacked: true },
+            },
           },
         });
       },
