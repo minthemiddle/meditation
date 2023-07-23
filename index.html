@@ -73,6 +73,19 @@
       <div class="mt-8">
         <canvas id="chart" width="400" height="200"></canvas>
       </div>
+
+      <!-- Edit LocalStorage data -->
+      <details class="mt-8">
+        <summary>Edit LocalStorage Data</summary>
+        <div class="font-mono">
+            <div class="w-full bg-white p-4 rounded-lg shadow-lg">
+                <label for="localStorageData" class="block font-medium text-gray-700">LocalStorage Data (JSON format)</label>
+                <textarea x-model="localStorageData" id="localStorageData" name="localStorageData" class="w-full mt-1 p-2 border border-gray-300 rounded-md resize-none" rows="8"></textarea>
+                <button @click="saveLocalStorageData()" class="mt-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Save LocalStorage Data</button>
+            </div>
+        </div>
+      </details>
+      
     </div>
   </div>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

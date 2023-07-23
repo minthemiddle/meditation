@@ -13,11 +13,13 @@ function app() {
       comment: '',
       entries: [],
       chart: null,
+      localStorageData: '',
   
       loadData() {
         const data = JSON.parse(localStorage.getItem('meditation_sessions') || '[]');
         this.entries = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         this.updateChart();
+        this.loadLocalStorageData(); // Load the LocalStorage data on initialization
       },
   
       saveEntry() {
@@ -59,7 +61,23 @@ function app() {
         this.type = 'Sitting';
         this.comment = '';
       },
-  
+
+      loadLocalStorageData() {
+        const data = JSON.stringify(this.entries, null, 2);
+        this.localStorageData = data;
+      },
+
+      saveLocalStorageData() {
+        try {
+          const parsedData = JSON.parse(this.localStorageData);
+          localStorage.setItem('meditation_sessions', JSON.stringify(parsedData));
+          this.loadData(); // Re-load the data to update the chart and table
+          alert('LocalStorage data updated successfully.');
+        } catch (error) {
+          alert('Invalid JSON data. Please check the format and try again.');
+        }
+      },
+
       saveToLocalStorage() {
         localStorage.setItem('meditation_sessions', JSON.stringify(this.entries));
         this.updateChart();
