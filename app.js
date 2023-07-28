@@ -21,6 +21,19 @@ function app() {
         this.updateChart();
         this.loadLocalStorageData(); // Load the LocalStorage data on initialization
       },
+      formatShortTime(timestamp) {
+        const date = new Date(timestamp);
+        const year = date.getFullYear().toString().slice(-2);
+        const month = this.padZero(date.getMonth() + 1);
+        const day = this.padZero(date.getDate());
+        const hours = this.padZero(date.getHours());
+        const minutes = this.padZero(date.getMinutes());
+        return `${year}-${month}-${day} ${hours}:${minutes}`;
+      },
+
+      padZero(num) {
+        return num.toString().padStart(2, '0');
+      },
   
       saveEntry() {
         if (this.duration <= 0) {
