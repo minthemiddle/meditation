@@ -21,6 +21,11 @@ function app() {
         this.updateChart();
         this.loadLocalStorageData(); // Load the LocalStorage data on initialization
       },
+
+      formatShortType(type) {
+        return type.charAt(0).toLowerCase();
+      },
+
       formatShortTime(timestamp) {
         const date = new Date(timestamp);
         const year = date.getFullYear().toString().slice(-2);
