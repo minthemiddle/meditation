@@ -13,7 +13,7 @@
     <h1 class="text-2xl font-bold mb-4">Sittings Logger</h1>
     <div x-data="app()" x-init="loadData()">
       <!-- Entry form -->
-      <div class="max-w-md bg-white p-4 rounded-lg shadow-lg">
+      <div class="max-w-full bg-white p-4 rounded-lg shadow-lg">
         <div class="mb-4">
           <label for="datetime" class="block font-medium text-gray-700">Date and Time</label>
           <input x-model="datetime" type="datetime-local" id="datetime" name="datetime" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
@@ -53,29 +53,27 @@
       <!-- Previous sessions -->
       <div class="mt-8">
         <h2 class="text-xl font-bold mb-4">Previous Sessions</h2>
-        <table class="min-w-full divide-y divide-gray-200 bg-white shadow overflow-hidden sm:rounded-lg">
+        <table class="w-full max-w-full divide-y divide-gray-200 bg-white shadow rounded-lg shadow-lg">
           <thead class="bg-gray-50">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration (minutes)</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Edit</th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
+              <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+              <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">min</th>
+              <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">T</th>
+              <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Edit</th>
+              <th class="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Delete</th>
             </tr>
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             <template x-for="entry in entries" :key="entry.id">
               <tr>
-                <td class="px-6 py-4 whitespace-nowrap" x-text="entry.timestamp"></td>
-                <td class="px-6 py-4 whitespace-nowrap" x-text="entry.duration"></td>
-                <td class="px-6 py-4 whitespace-nowrap" x-text="entry.type"></td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <button @click="editEntry(entry.id)" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Edit</button>
                 <td class="px-2 py-2 whitespace-nowrap text-sm" x-text="entry.shorttime"></td>
+                <td class="px-2 py-2 whitespace-nowrap text-sm" x-text="entry.duration"></td>
                 <td class="px-2 py-2 whitespace-nowrap text-sm" x-text="entry.shorttype"></td>
+                <td class="px-2 py-2 whitespace-nowrap">
+                  <button @click="editEntry(entry.id)" class="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600">Edit</button>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <button @click="deleteEntry(entry.id)" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">Delete</button>
+                <td class="px-2 py-2 whitespace-nowrap">
+                    <button @click="deleteEntry(entry.id)" class="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600">Delete</button>
                 </td>
               </tr>
             </template>
