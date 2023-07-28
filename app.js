@@ -17,7 +17,11 @@ function app() {
   
       loadData() {
         const data = JSON.parse(localStorage.getItem('meditation_sessions') || '[]');
-        this.entries = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+        this.entries = data.map(entry => ({
+            ...entry,
+            shorttime: this.formatShortTime(entry.timestamp),
+            shorttype: this.formatShortType(entry.type),
+          })).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         this.updateChart();
         this.loadLocalStorageData(); // Load the LocalStorage data on initialization
       },
