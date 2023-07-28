@@ -19,7 +19,12 @@
           <input x-model="datetime" type="datetime-local" id="datetime" name="datetime" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
         </div>
         <div class="mb-4">
-          <label for="duration" class="block font-medium text-gray-700">Length (minutes)</label>
+            <div class="inline-block space-x-2">
+                <label for="duration" class="inline-block font-medium text-gray-700">Length (minutes)</label>
+                <button class="inline-block underline" @click="duration = 5">5</button>
+                <button class="inline-block underline" @click="duration = 15">15</button>
+                <button class="inline-block underline" @click="duration = 30">30</button>
+            </div>
           <input x-model="duration" type="number" id="duration" name="duration" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
         </div>
         <div class="mb-4">
