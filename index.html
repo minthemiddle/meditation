@@ -23,13 +23,17 @@
           <input x-model="duration" type="number" id="duration" name="duration" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
         </div>
         <div class="mb-4">
-          <label for="type" class="block font-medium text-gray-700">Type</label>
-          <select x-model="type" id="type" name="type" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
-            <option value="Sitting">Sitting</option>
-            <option value="Walking">Walking</option>
-            <option value="Bodyscan">Bodyscan</option>
-            <option value="Other">Other</option>
-          </select>
+            <details>
+                <summary>Adjust type</summary>
+                <label for="type" class="block font-medium text-gray-700">Type</label>
+                <select x-model="type" id="type" name="type" class="w-full mt-1 p-2 border border-gray-300 rounded-md">
+                  <option value="Sitting">Sitting</option>
+                  <option value="Walking">Walking</option>
+                  <option value="Bodyscan">Bodyscan</option>
+                  <option value="Other">Other</option>
+                </select>
+            </details>
+         
         </div>
         <div class="mb-4">
             <details>
