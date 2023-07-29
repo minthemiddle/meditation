@@ -59,7 +59,6 @@ function app() {
         this.entries.unshift(entry);
         this.saveToLocalStorage();
         this.resetForm();
-        this.loadData();
       },
   
       editEntry(id) {
