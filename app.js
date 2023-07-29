@@ -55,11 +55,14 @@ function app() {
           duration: parseInt(this.duration),
           type: this.type,
           comment: this.comment,
+          shorttime: this.formatShortTime(timestamp), // Add shorttime property
+          shorttype: this.formatShortType(this.type), // Add shorttype property
         };
         this.entries.unshift(entry);
         this.saveToLocalStorage();
         this.resetForm();
       },
+      
   
       editEntry(id) {
         const entry = this.entries.find(e => e.id === id);
