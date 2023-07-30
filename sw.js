@@ -8,7 +8,8 @@ self.addEventListener('install', function(event) {
                 '/index.html',
                 '/app.js',
                 'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css',
-                'https://unpkg.com/alpinejs'
+                'https://unpkg.com/alpinejs',
+                'https://cdn.jsdelivr.net/npm/chart.js'
             ]);
         })
     );
